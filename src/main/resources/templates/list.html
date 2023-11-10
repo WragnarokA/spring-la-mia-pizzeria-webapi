@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/resources :: headResources('Pizza List')"></head>
+
+<body style="background-color: #222  ">
+
+<div class="container text-light ">
+	<h1 class="text-white  p-2 g-col-6">Pizza List 🍕🍕🍕</h1>
+	
+	<div class="d-flex flex-wrap justify-content-around gap-2">
+		<div th:each="pizza : ${pizzaList}" class="card" style="width: 18rem;">
+			<img th:src="@{${pizza.url}}" class="card-img-top" alt="Immagine"/>
+			<div class="card-body">
+				<h5 th:text="${pizza.name}" class="card-title"></h5>
+				<p th:text="${pizza.description}" class="card-text"></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>
+
+
+	
+
+		
