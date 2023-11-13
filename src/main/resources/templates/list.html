@@ -3,20 +3,48 @@
 <head th:insert="fragments/resources :: headResources('Pizza List')"></head>
 
 <body style="background-color: #222  ">
+<header>
+	<nav th:replace="fragments/navBar :: topNavBar('pizze')"></nav>
 
-<div class="container text-light ">
-	<h1 class="text-white  p-2 g-col-6">Pizza List 🍕🍕🍕</h1>
+</header>
+<main>
 	
-	<div class="d-flex flex-wrap justify-content-around gap-2">
-		<div th:each="pizza : ${pizzaList}" class="card" style="width: 18rem;">
-			<img th:src="@{${pizza.url}}" class="card-img-top" alt="Immagine"/>
-			<div class="card-body">
-				<h5 th:text="${pizza.name}" class="card-title"></h5>
-				<p th:text="${pizza.description}" class="card-text"></p>
+	<div class="container text-light ">
+		<h1 class="text-white  p-2 g-col-6"> Ristoria Pizzorante: Pizza List 🍕🍕🍕</h1>
+		<form th:action="@{/pizze}" method="GET" class="d-flex my-3">
+			<div class="input-group">
+				<input class="form-control me-2" type="text" placeholder="Search" name="search" th:value="${param.search}">
+				<button class="btn btn-outline-success text-light col-2" type="submit">Search Pizza</button>
 			</div>
-		</div>
+		</form>
+		<table class="table table-bordered border-primary ">
+			<thead>
+			<tr>
+				<th scope="col">Name</th>
+				<th scope="col">Description</th>
+				<th scope="col">Photo</th>
+				<th scope="col">Price</th>
+				<th scope="col" class="text-center">Details</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="pizza : ${pizzaList}" th:object="${pizza}">
+				<td th:text="*{name}"></td>
+				<td th:text="*{description}"></td>
+				<td style="width: 5rem;"><img th:src="@{*{url}}" class="img-fluid" alt="Pizza Image"/></td>
+				<td th:text="*{prezzo}"></td>
+				<td class="text-center"><a th:href="@{pizze/show/{id}(id=*{id})}"><i class="fa-solid fa-pizza-slice"></i></a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	
+	
 	</div>
-</div>
+</main>
+<footer>
+
+</footer>
 
 
 </body>

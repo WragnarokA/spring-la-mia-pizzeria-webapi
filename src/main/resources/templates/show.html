@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/resources :: headResources('Show')"></head>
+
+<body style="background-color: #222  ">
+
+<header>
+	<nav th:replace="fragments/navBar :: topNavBar('pizze')"></nav>
+</header>
+
+<main class="text-light">
+	<div class="container">
+		<h1 class="">Pizza Details</h1>
+		<h2 th:text="${pizza.name}"></h2>
+		
+		<div class="card" style="width: 18rem;">
+			<img th:src="@{${pizza.url}}" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 th:text="${pizza.name}" class="card-title"></h5>
+				<p th:text="${pizza.description}" class="card-text"></p>
+				<p th:text="${pizza.prezzo}" class="card-text"></p>
+				<a th:href="@{/pizze}" class="btn btn-primary"> Go back to pizze</a>
+			</div>
+		</div>
+	
+	</div>
+</main>
+
+</body>
+</html>
