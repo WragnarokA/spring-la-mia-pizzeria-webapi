@@ -5,12 +5,16 @@
 <body style="background-color: #222  ">
 <header>
 	<nav th:replace="fragments/navBar :: topNavBar('pizze')"></nav>
-
 </header>
+
 <main>
 	
 	<div class="container text-light ">
+		
 		<h1 class="text-white  p-2 g-col-6"> Ristoria Pizzorante: Pizza List 🍕🍕🍕</h1>
+		<hr>
+		<a th:href="@{/pizze/create}" class="btn btn-primary">Add new Pizza</a>
+		
 		<form th:action="@{/pizze}" method="GET" class="d-flex my-3">
 			<div class="input-group">
 				<input class="form-control me-2" type="text" placeholder="Search" name="search" th:value="${param.search}">

@@ -1,6 +1,7 @@
 package com.experis.course.springPizzeriaCrud.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
@@ -10,11 +11,21 @@ public class Pizza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank(message = "Name must not be blank")
+    @Size(max = 255)
+    @Size(min = 3)
     private String name;
     @Lob
+    @NotBlank(message = "Description must not be blank")
+    @Size(min = 3)
     private String description;
     @Lob
+    @NotBlank(message = "Image must not be blank")
+    @Size(min = 3)
     private String url;
+    @DecimalMin("5.00")
+    @DecimalMax("30.00")
+    @NotNull
     private BigDecimal prezzo;
 
 
