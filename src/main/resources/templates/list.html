@@ -12,6 +12,10 @@
 	<div class="container text-light ">
 		
 		<h1 class="text-white  p-2 g-col-6"> Ristoria Pizzorante: Pizza List 🍕🍕🍕</h1>
+		<div th:if="${message !=null}" class="alert alert-success alert-dismissible fade show">
+			<span th:text="${message}"></span>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
 		<hr>
 		<a th:href="@{/pizze/create}" class="btn btn-primary">Add new Pizza</a>
 		
@@ -29,6 +33,8 @@
 				<th scope="col">Photo</th>
 				<th scope="col">Price</th>
 				<th scope="col" class="text-center">Details</th>
+				<th scope="col" class="text-center">Edit</th>
+				<th scope="col" class="text-center">Delete</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -37,7 +43,20 @@
 				<td th:text="*{description}"></td>
 				<td style="width: 5rem;"><img th:src="@{*{url}}" class="img-fluid" alt="Pizza Image"/></td>
 				<td th:text="*{prezzo}"></td>
-				<td class="text-center"><a th:href="@{pizze/show/{id}(id=*{id})}"><i class="fa-solid fa-pizza-slice"></i></a>
+				<td class="text-center">
+					<a class="btn btn-warning" th:href="@{pizze/show/{id}(id=*{id})}"><i class="fa-solid fa-pizza-slice"
+					                                                                     style="color: #ffffff;"></i>
+					</a>
+				<td class="text-center">
+					<a class="btn btn-success" th:href="@{/pizze/edit/{id}(id=*{id})}"><i class="fa-solid fa-pen-to-square"
+					                                                                      style="color: #ffffff;"></i>
+					</a>
+				<td class="text-center">
+					<form method="POST" th:action="@{/pizze/delete/{id}(id=*{id})}" onsubmit="retunrn confirm('Are you sure?')">
+						<button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+						</button>
+					</form>
+				
 				</td>
 			</tr>
 			</tbody>

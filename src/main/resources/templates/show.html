@@ -13,6 +13,7 @@
 	<div class="container">
 		<h1 class="">Pizza Details</h1>
 		<h2 th:text="${pizza.name}"></h2>
+		<a th:href="@{/pizze}" class="btn btn-primary my-5"> Go back to pizze</a>
 		
 		<div class="card" style="width: 18rem;">
 			<img th:src="@{${pizza.url}}" class="card-img-top" alt="...">
@@ -20,7 +21,10 @@
 				<h5 th:text="${pizza.name}" class="card-title"></h5>
 				<p th:text="${pizza.description}" class="card-text"></p>
 				<p th:text="${pizza.prezzo}" class="card-text"></p>
-				<a th:href="@{/pizze}" class="btn btn-primary"> Go back to pizze</a>
+				<div class="d-flex justify-content-between">
+					<a th:href="@{{id}(id=*{id})}" class="btn btn-success">Edit</a>
+					<a th:href="@{/pizze}" class="btn btn-danger">Delete</a>
+				</div>
 			</div>
 		</div>
 	

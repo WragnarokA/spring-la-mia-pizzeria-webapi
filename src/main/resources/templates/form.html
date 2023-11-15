@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="isEdit=${pizza.id != null}">
+
+<head th:insert="fragments/resources :: headResources(${isEdit ? 'Edit Pizza' : 'Create Pizza'})"></head>
+
+<body style="background-color: #222  ">
+<header>
+	<nav th:replace="fragments/navBar :: topNavBar('pizze')"></nav>
+</header>
+
+<main class="text-light ">
+	<div class="container">
+		<h1 th:text="${isEdit ? 'Edit Pizza' : 'Create Pizza'}"></h1>
+		<hr>
+		
+		<form
+				th:with="actionUrl=${isEdit ? '/pizze/edit/'+pizza.id : '/pizze/create' }"
+				id="pizza-crate"
+				method="POST"
+				th:action="@{${actionUrl}}"
+				th:object="${pizza}"
+				class="row"
+		>
+			<div class="col-4 mb-3" th:insert="fragments/components :: formField('text', 'Name', 'name')"></div>
+			<div class="col-4 mb-3" th:insert="fragments/components :: formField('text', 'Image', 'url')"></div>
+			<div class="col-4 mb-3" th:insert="fragments/components :: formField('number', 'Price', 'prezzo')"></div>
+			<div class="col-6 mb-3">
+				<label for="description" class="form-label">Description</label>
+				<textarea id="description" class="form-control" rows="5" th:field="*{description}"> </textarea>
+			</div>
+			<div class="col-12 ">
+				<button class=" btn btn-primary " type="submit">Save</button>
+				<a th:href="@{/pizze}" class=" mx-5 btn btn-primary">Go to Pizze</a>
+			</div>
+		
+		
+		</form>
+	
+	</div>
+
+
+</main>
+
+</body>
+
+</html>
