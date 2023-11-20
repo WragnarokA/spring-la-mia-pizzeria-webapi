@@ -12,20 +12,69 @@
 <main class="text-light">
 	<div class="container">
 		<h1 class="">Pizza Details</h1>
-		<h2 th:text="${pizza.name}"></h2>
 		<a th:href="@{/pizze}" class="btn btn-primary my-5"> Go back to pizze</a>
+		<div th:replace="fragments/components :: message"></div>
 		
-		<div class="card" style="width: 18rem;">
-			<img th:src="@{${pizza.url}}" class="card-img-top" alt="...">
-			<div class="card-body">
-				<h5 th:text="${pizza.name}" class="card-title"></h5>
-				<p th:text="${pizza.description}" class="card-text"></p>
-				<p th:text="${pizza.prezzo}" class="card-text"></p>
-				<div class="d-flex justify-content-between">
-					<a th:href="@{{id}(id=*{id})}" class="btn btn-success">Edit</a>
-					<a th:href="@{/pizze}" class="btn btn-danger">Delete</a>
+		<div class="d-flex">
+			
+			<div class="col-5">
+				<div class="card" style="width: 18rem;">
+					<img th:src="@{${pizza.url}}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 th:text="${pizza.name}" class="card-title"></h5>
+						<p th:text="${pizza.description}" class="card-text"></p>
+						<p th:text="${pizza.prezzo}" class="card-text"></p>
+						<div class="d-flex justify-content-between">
+							<a th:href="@{/discounts/create(pizzaId=${pizza.id})}" class="btn btn-success">Add discount</a>
+							<!--							<a th:href="@{/pizze}" class="btn btn-danger">Delete</a>-->
+						</div>
+					</div>
 				</div>
 			</div>
+			
+			<div class="col-6">
+				
+				<h2>Discounts
+					<a th:href="@{/discounts/create(pizzaId=${pizza.id})}">
+						<i class="fa-solid fa-circle-plus" style="color: #44bc10;"></i>
+					</a>
+				</h2>
+				<table class="table">
+					<thead>
+					<tr>
+						<th>Title</th>
+						<th>Start date</th>
+						<th>End date</th>
+						<th class="text-center">Edit</th>
+						<th scope="col" class="text-center">Delete</th>
+					
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="discount : ${pizza.discounts}" th:object="${discount}">
+						<td th:text="*{title}"></td>
+						<td th:text="*{startDate}"></td>
+						<td th:text="*{expireDate}"></td>
+						<td class="text-center">
+							<a class="btn btn-success"
+							   th:href="@{/discounts/edit/{id}(id=*{id})}">
+								<i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
+							</a>
+						</td>
+						<td class="text-center">
+							<form method="POST" th:action="@{/discounts/delete/{id}(id=*{id})}"
+							      onsubmit="return confirm('Are you sure?')">
+								<button class="btn btn-danger" type="submit">
+									<i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+								</button>
+							</form>
+					
+					</tr>
+					</tbody>
+				</table>
+				<div th:if="${pizza.discounts.size() == 0}" class="alert alert-info">the list is empty</div>
+			</div>
+		
 		</div>
 	
 	</div>
