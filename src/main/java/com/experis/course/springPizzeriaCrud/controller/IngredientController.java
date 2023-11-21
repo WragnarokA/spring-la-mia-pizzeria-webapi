@@ -45,4 +45,5 @@ public class IngredientController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A ingredient with name " + e.getMessage() + " already exists");
         }
     }
+    
 }
