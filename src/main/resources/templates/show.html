@@ -23,7 +23,11 @@
 					<div class="card-body">
 						<h5 th:text="${pizza.name}" class="card-title"></h5>
 						<p th:text="${pizza.description}" class="card-text"></p>
-						<p th:text="${pizza.prezzo}" class="card-text"></p>
+						<ul th:if="${pizza.ingredients.size() > 0}" class="list-group">
+							<li class="list-group-item active" aria-current="true">An active item</li>
+							<li th:each="ing : ${pizza.ingredients}" class="list-group-item" th:text="${ing.name}">A second item</li>
+						</ul>
+						<p th:text="€+${pizza.prezzo}" class="card-text my-2"></p>
 						<div class="d-flex justify-content-between">
 							<a th:href="@{/discounts/create(pizzaId=${pizza.id})}" class="btn btn-success">Add discount</a>
 							<!--							<a th:href="@{/pizze}" class="btn btn-danger">Delete</a>-->

@@ -2,6 +2,7 @@ package com.experis.course.springPizzeriaCrud.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "ingredients")
@@ -11,6 +12,7 @@ public class Ingredient {
     private Integer id;
 
     @NotBlank
+    @Size(max = 50)
     @Column(nullable = false)
     private String name;
 
@@ -29,4 +31,5 @@ public class Ingredient {
     public void setName(String name) {
         this.name = name;
     }
+
 }

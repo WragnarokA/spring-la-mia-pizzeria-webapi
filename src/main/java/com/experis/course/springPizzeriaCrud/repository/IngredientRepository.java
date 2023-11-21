@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface IngredientRepository extends JpaRepository<Ingredient, Integer> {
     List<Ingredient> findByOrderByName();
+
+    boolean existsByName(String name);
 }

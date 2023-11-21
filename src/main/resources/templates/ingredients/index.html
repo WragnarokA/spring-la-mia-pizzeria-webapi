@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/resources :: headResources('Ingredients')"></head>
+
+<body style="background-color: #222  ">
+
+<header>
+	<nav th:replace="fragments/navBar :: topNavBar('ingredients')"></nav>
+</header>
+
+<main class="text-light">
+	<div class="container">
+		<h1 class="my-2">Ingredients</h1>
+		<hr>
+		<div class="col-12 d-flex justify-content-between">
+			<div class="col-5">
+				<ul class="list-group">
+					<li class="list-group-item active" aria-current="true">Ingredients List</li>
+					<li th:each="ing : ${ingredientsList}" class="list-group-item" th:text="${ing.name}"></li>
+				</ul>
+			</div>
+			<div class="col-6 ">
+				<form
+						id="ingredient-form"
+						th:action="@{/ingredients}"
+						method="POST"
+						th:object="${ingredientObj}"
+				>
+					<h5 class="mb-5">
+						<div class="col-4 mb-3"
+						     th:insert="fragments/components :: formField('text', 'Add Ingredient Name', 'name')">
+						</div>
+					</h5>
+					<div class="col-12 ">
+						<button class=" btn btn-primary " type="submit">Add Ingredient</button>
+						<a th:href="@{/pizze}" class=" mx-5 btn btn-primary">Go to Pizze</a>
+					</div>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</div>
+
+</main>
+
+</body>
+</html>

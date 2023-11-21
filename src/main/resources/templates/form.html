@@ -34,12 +34,14 @@
 				
 				<div class="col-6 ">
 					<p>Ingredients :</p>
-					
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="1" id="ing_1">
-						<label class="form-check-label" for="ing_1">
-							Pancetta
-						</label>
+					<div class="d-flex flex-wrap gap-4 ">
+						<div class="form-check " th:each="ing : ${ingredientList}">
+							<input class="form-check-input" type="checkbox" th:value="${ing.id}" th:id="|cat_${ing.id}|"
+							       th:field="*{ingredients}">
+							<label class="form-check-label" th:for="|cat_${ing.id}|" th:text="${ing.name}">
+							
+							</label>
+						</div>
 					</div>
 				
 				</div>

@@ -59,13 +59,14 @@ public class PizzaController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("pizza", new Pizza());
-//        model.addAttribute();
+        model.addAttribute("ingredientList", ingredientService.getAll());
         return "form";
     }
 
     @PostMapping("/create")
-    public String doCreate(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+    public String doCreate(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredientList", ingredientService.getAll());
             return "form";
         }
         Pizza savePizza = pizzaRepository.save(formPizza);
@@ -81,6 +82,8 @@ public class PizzaController {
         try {
             //Dal id recupero i dati  della pizza
             model.addAttribute("pizza", pizzaService.getPizzaById(id));
+            model.addAttribute("ingredientList", ingredientService.getAll());
+
             return "/form";
         } catch (PizzaNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + id + " not found");
@@ -90,9 +93,16 @@ public class PizzaController {
 
     //Metodo che riceve il submit di Edit e lo salva
     @PostMapping("/edit/{id}")
-    public String doEdit(@PathVariable Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+    public String doEdit(@PathVariable Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredientList", ingredientService.getAll());
             return "/pizze/form";
+        }
+        try {
+            Pizza savePizza = pizzaService.editPizza(formPizza);
+            return "redirect:/pizze/show/" + savePizza.getId();
+        } catch (PizzaNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         //recupero la pizza che voglio modificare da DB
@@ -104,12 +114,6 @@ public class PizzaController {
 //        pizzaToEdit.setPrezzo(formPizza.getPrezzo());
         // se  non ci sono errori salvo la modifica della pizza
 
-        try {
-            Pizza savePizza = pizzaService.editPizza(formPizza);
-            return "redirect:/pizze/show/" + savePizza.getId();
-        } catch (PizzaNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
     }
 
     //******DELETE******///
