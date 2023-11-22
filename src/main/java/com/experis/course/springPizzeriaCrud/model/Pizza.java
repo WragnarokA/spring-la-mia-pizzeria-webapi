@@ -1,5 +1,6 @@
 package com.experis.course.springPizzeriaCrud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -29,11 +30,12 @@ public class Pizza {
     @DecimalMax("30.00")
     @NotNull
     private BigDecimal prezzo;
-    
+
     @OneToMany(mappedBy = "pizza", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Discount> discounts = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Ingredient> ingredients;
 
     // GETTER AND SETTER

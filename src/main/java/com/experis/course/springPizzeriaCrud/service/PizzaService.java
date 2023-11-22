@@ -25,6 +25,10 @@ public class PizzaService {
         }
     }
 
+    public List<Pizza> getPizzaList() {
+        return pizzaRepository.findAll();
+    }
+
     // metodo che restituisce una pizza se non la trova solleva un'eccezione
     public Pizza getPizzaById(Integer id) throws PizzaNotFoundException {
         Optional<Pizza> result = pizzaRepository.findById(id);
