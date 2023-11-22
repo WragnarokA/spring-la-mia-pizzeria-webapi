@@ -14,7 +14,7 @@
 		<h1 class="text-white  p-2 g-col-6"> Ristoria Pizzorante: Pizza List 🍕🍕🍕</h1>
 		<div th:replace="fragments/components :: message"></div>
 		<hr>
-		<a th:href="@{/pizze/create}" class="btn btn-primary">Add new Pizza</a>
+		<a th:href="@{/pizze/create}" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">Add new Pizza</a>
 		
 		<form th:action="@{/pizze}" method="GET" class="d-flex my-3">
 			<div class="input-group">
@@ -49,13 +49,15 @@
 				
 				<td class="text-center">
 					<a class="btn btn-success"
-					   th:href="@{/pizze/edit/{id}(id=*{id})}">
+					   th:href="@{/pizze/edit/{id}(id=*{id})}"
+					   sec:authorize="hasAuthority('ADMIN')"
+					>
 						<i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
 					</a>
 				</td>
 				<td class="text-center">
 					<form method="POST" th:action="@{/pizze/delete/{id}(id=*{id})}" onsubmit="return confirm('Are you sure?')">
-						<button class="btn btn-danger" type="submit">
+						<button class="btn btn-danger" type="submit" sec:authorize="hasAuthority('ADMIN')">
 							<i class="fa-solid fa-trash" style="color: #ffffff;"></i>
 						</button>
 					</form>

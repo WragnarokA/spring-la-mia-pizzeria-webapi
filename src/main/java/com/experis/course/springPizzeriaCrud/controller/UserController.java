@@ -1,5 +1,10 @@
 package com.experis.course.springPizzeriaCrud.controller;
 
+import com.experis.course.springPizzeriaCrud.model.User;
+import com.experis.course.springPizzeriaCrud.repository.UserRepository;
+import com.experis.course.springPizzeriaCrud.security.DataBaseUserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/users")
 public class UserController {
+
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping
-    public String index(Model model) {
+    public String index(Authentication authentication, Model model) {
+
+        DataBaseUserDetails principal = (DataBaseUserDetails) authentication.getPrincipal();
+        User loggedUser = userRepository.findById(principal.getId()).get();
+        model.addAttribute(loggedUser.getFirstName());
+        model.addAttribute(loggedUser.getLastName());
         return "users/index";
     }
 }
