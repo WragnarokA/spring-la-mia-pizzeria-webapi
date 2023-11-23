@@ -5,6 +5,9 @@ import com.experis.course.springPizzeriaCrud.model.Pizza;
 import com.experis.course.springPizzeriaCrud.service.PizzaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -59,6 +62,7 @@ public class PizzaRestController {
         }
     }
 
+    //endpoint per la Delete
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         try {
@@ -67,5 +71,11 @@ public class PizzaRestController {
         } catch (PizzaNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
+    }
+
+    //endpoint per la paginazione
+    @GetMapping("/page/v2")
+    public Page<Pizza> pagedIndexV2(@PageableDefault(page = 0, size = 2) Pageable pageable) {
+        return pizzaService.getPage(pageable);
     }
 }

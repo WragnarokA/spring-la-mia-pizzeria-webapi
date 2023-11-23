@@ -4,6 +4,8 @@ import com.experis.course.springPizzeriaCrud.exceptions.PizzaNotFoundException;
 import com.experis.course.springPizzeriaCrud.model.Pizza;
 import com.experis.course.springPizzeriaCrud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,10 +60,15 @@ public class PizzaService {
         return pizzaRepository.save(pizzaToEdit);
     }
 
+    //metodo che fa la Delete
     public void deletePizzaById(Integer id) {
         pizzaRepository.deleteById(id);
     }
 
+    // Metodo che prende in ingresso un Pageable e restituisce la Page delle Pizze
+    public Page<Pizza> getPage(Pageable pageable) {
+        return pizzaRepository.findAll(pageable);
+    }
 }
 
 
