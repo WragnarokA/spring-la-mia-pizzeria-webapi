@@ -47,4 +47,25 @@ public class PizzaRestController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
+
+    //endpoint per modificare una pizza
+    @PutMapping("/{id}")
+    public Pizza edit(@PathVariable Integer id, @Valid @RequestBody Pizza pizza) {
+        pizza.setId(id);
+        try {
+            return pizzaService.editPizza(pizza);
+        } catch (PizzaNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        try {
+            Pizza pizzaToDelete = pizzaService.getPizzaById(id);
+            pizzaService.deletePizzaById(id);
+        } catch (PizzaNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 }

@@ -25,6 +25,10 @@ INSERT INTO db_pizzeria.ingredients (name) VALUES("Peperoncino");
 INSERT INTO db_pizzeria.ingredients (name) VALUES("Tonno");
 INSERT INTO db_pizzeria.ingredients (name) VALUES("Ananas");
 
+INSERT INTO pizze_ingredients (pizza_id, ingredients_id) VALUES(1, 1);
+
+INSERT INTO discounts (id, expire_date, start_date, title, pizza_id) VALUES(1, '15/12/2023', '24/11/2023', '20 Percento', 1);
+
 INSERT INTO db_pizzeria.roles(id, name) VALUES(1, 'ADMIN');
 INSERT INTO db_pizzeria.roles(id, name) VALUES(2, 'USER');
 

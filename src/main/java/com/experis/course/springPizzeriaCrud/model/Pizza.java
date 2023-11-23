@@ -32,10 +32,10 @@ public class Pizza {
     private BigDecimal prezzo;
 
     @OneToMany(mappedBy = "pizza", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Discount> discounts = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<Ingredient> ingredients;
 
     // GETTER AND SETTER
