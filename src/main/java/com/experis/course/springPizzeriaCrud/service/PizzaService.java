@@ -39,6 +39,12 @@ public class PizzaService {
         }
     }
 
+    // metodo per creare una pizza
+    public Pizza createPizza(Pizza pizza) {
+        return pizzaRepository.save(pizza);
+    }
+
+
     // Metodo per modificare un nuova pizza
 
     public Pizza editPizza(Pizza pizza) throws PizzaNotFoundException {

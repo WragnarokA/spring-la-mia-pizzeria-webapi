@@ -3,6 +3,7 @@ package com.experis.course.springPizzeriaCrud.api;
 import com.experis.course.springPizzeriaCrud.exceptions.PizzaNotFoundException;
 import com.experis.course.springPizzeriaCrud.model.Pizza;
 import com.experis.course.springPizzeriaCrud.service.PizzaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @RequestMapping("/api/v1/pizze")
 @CrossOrigin
 public class PizzaRestController {
+
     @Autowired
     private PizzaService pizzaService;
 
@@ -31,6 +33,18 @@ public class PizzaRestController {
             return pizzaService.getPizzaById(id);
         } catch (PizzaNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    //endpoint per creare una nuova pizza
+    @PostMapping
+    public Pizza create(@Valid @RequestBody Pizza pizza) {
+        pizza.setId(null);
+        try {
+            return pizzaService.createPizza(pizza);
+        } catch (Exception e) {
+            // Puoi gestire l'eccezione qui se necessario
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }
